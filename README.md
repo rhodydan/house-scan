@@ -6,7 +6,7 @@ An iPhone app for scanning a house with LiDAR, with no account and no networking
 - The 3D blueprint dashboard in `blueprint/`: [the article](https://danielrhody.com/writing/a-home-assistant-blueprint-with-html-in-canvas/) and a [live demo](https://danielrhody.com/demos/house-blueprint/index.html) with an invented house
 - [Privacy policy](https://danielrhody.com/house-scan/privacy/)
 
-Projects hold floors, floors hold rooms. Projects hold floors, floors hold rooms. Each room is scanned with
+Projects hold floors, floors hold rooms. Each room is scanned with
 Apple's RoomPlan, and a floor's rooms merge into one model that exports as USDZ, a PDF and PNG floor plan, and JSON.
 Rooms can also hold an insurance inventory, and projects hold site notes: a photo with GPS, compass heading and a note.
 
