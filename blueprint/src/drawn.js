@@ -106,6 +106,10 @@ class Surface {
     // Copy exactly the element's box. Its painted picture can be bigger (outlines, text glow spill past the box), and
     // without a source rect the copy overflows the texture and fails.
     const [cw, ch] = this.size.css;
+    // three.js leaves the unpack state from its own last upload; after an image texture (flipY) this copy would land
+    // upside down.
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
     gl.texElementSubImage2D(gl.TEXTURE_2D, 0, 0, 0, this.element, { sx: 0, sy: 0, swidth: cw, sheight: ch, width: w, height: h });
     renderer.resetState(); // three.js caches GL bindings; we changed one behind its back
     this.mesh.visible = true;

@@ -3,7 +3,7 @@
 //   HA_MOCK=1 HOUSE_DIR=<copy of demo/> npx vite   then   node scripts/e2e-site.mjs
 import { chromium } from 'playwright-core';
 
-const base = 'http://127.0.0.1:5199';
+const base = process.env.BASE ?? 'http://127.0.0.1:5199';
 const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const errors = [];

@@ -151,7 +151,7 @@ export function buildSite(site, index, { letter, onPlace }) {
   for (const place of site.places ?? []) {
     const y = (place.elevation ?? 0) + 0.06;
     const room = { name: place.name, center: place.at, area: null };
-    const label = letter(group, `<i></i><b>${place.name}</b>`, 'room place', [place.at[0], y, place.at[1]], { size: 3.2, onClick: () => onPlace(index, room) });
+    const label = letter(group, `<i></i><b>${place.name}</b>`, 'room place', [place.at[0], y, place.at[1]], { size: 3.2, pin: 'i', onClick: () => onPlace(index, room) });
     labels.push(label);
     all.push(place.at);
   }

@@ -120,7 +120,7 @@ const geometryOf = (positions) => {
  * A piece of lettering on the drawing. With html-in-canvas it's painted flat on the floor, so it tilts in perspective
  * like ink on the sheet and is still clickable; otherwise it floats over the canvas, always facing the viewer.
  */
-function letter(group, html, className, at, { size = 1, onClick } = {}) {
+function letter(group, html, className, at, { size = 1, onClick, pin } = {}) {
   const element = document.createElement('div');
   element.className = className;
   element.innerHTML = html;
@@ -128,16 +128,31 @@ function letter(group, html, className, at, { size = 1, onClick } = {}) {
     element.addEventListener('pointerdown', (e) => e.stopPropagation());
     element.addEventListener('click', (e) => { e.stopPropagation(); onClick(); });
   }
+  // `pin` names a child (a place's dot) that sits on `at`, so the lettering starts there instead of centring on it.
+  const pinned = () => {
+    const p = pin && element.querySelector(pin);
+    const w = element.offsetWidth, h = element.offsetHeight;
+    return p && w && h ? [(p.offsetLeft + p.offsetWidth / 2) / w, (p.offsetTop + p.offsetHeight / 2) / h] : null;
+  };
   if (DRAWN) {
     const surface = drawn.add(element, { metresPerPixel: 0.014 * size });
     surface.mesh.rotation.x = -Math.PI / 2; // lie flat, reading up the page (towards -Z)
     surface.mesh.position.set(at[0], at[1] + 0.02, at[2]);
     surface.mesh.renderOrder = 2;
     surface.interactive = Boolean(onClick);
+    if (pin) {
+      // The plane's +X is the page's right and its top is towards -Z.
+      surface.onResize = ([w, h]) => {
+        const [u, v] = pinned() ?? [0.5, 0.5];
+        surface.mesh.position.set(at[0] - (u - 0.5) * w * surface.metresPerPixel, at[1] + 0.02, at[2] + (0.5 - v) * h * surface.metresPerPixel);
+      };
+    }
     group.add(surface.mesh);
     return { element, surface, setOpacity: (o) => { surface.material.opacity = o; } };
   }
   const tag = new CSS2DObject(element);
+  // CSS2DRenderer puts the point at (center.x, center.y) of the element's box, measured from its top left.
+  if (pin) requestAnimationFrame(() => { const uv = pinned(); if (uv) tag.center.set(uv[0], uv[1]); });
   tag.position.set(...at);
   group.add(tag);
   return { element, tag, setOpacity: (o) => { element.style.opacity = String(o); element.style.pointerEvents = o > 0.5 && onClick ? 'auto' : 'none'; } };
