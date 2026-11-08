@@ -182,7 +182,12 @@ export async function loadHouse(read) {
     f.rooms = f.rooms.map((r) => ({ ...r, center: shift(r.center) }));
     f.callouts = f.callouts.map((c) => ({ ...c, at: shift(c.at) }));
   }
-  return { name: house.name, floors, size: sub(max, min) };
+  // The site (lot, landscaping, outdoor places) is drawn in the same frame as the stacked floors, so it moves with them.
+  const site = house.site ? {
+    features: (house.site.features ?? []).map((f) => ({ ...f, ...(f.points ? { points: f.points.map(shift) } : {}), ...(f.center ? { center: shift(f.center) } : {}) })),
+    places: (house.site.places ?? []).map((p) => ({ ...p, at: shift(p.at) })),
+  } : null;
+  return { name: house.name, floors, size: sub(max, min), origin: mid, site };
 }
 
 /** 3.05 → 10'-0", the way a draftsman writes it. */

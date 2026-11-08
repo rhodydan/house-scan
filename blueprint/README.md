@@ -60,6 +60,14 @@ against the mock, that a click on a drawn room label opens its panel and a tap o
   metres, and set at `elevation` above the lowest floor. `floorY` is the scan's own floor height, from the export.
 - **Corrections:** these are in that floor's own scan frame, before it's turned. They fix what the scanner couldn't
   see, and the export JSON itself is never edited.
+- **Site:** `site.features` draws the lot in the house's frame: `property`, `wall`, `driveway`, `lawn`, `bed`, `path`,
+  `steps`, `patio`, `court` and `structure` take `points`; `pool` takes `center` and `radius`. Each can have an
+  `elevation` (a sloping lot puts the back yard and the driveway at different heights), a `name` to letter it, and
+  structures a `height` and `roof: "pyramid"`. `site.places` are outdoor spots (`name`, `at`, `elevation`) that open
+  their Home Assistant area's devices, matched by name like rooms. The site gets its own entry in the floor rail.
+- **Links:** `links.cameras` is where to watch live video, such as a hub's camera page. Cameras that only stream
+  WebRTC (Nest's, for example) have no still picture for the panel, so it offers this link instead.
+- **North:** `north.plusXBearingDegrees` is the compass bearing of the house's +X; the title block's arrow uses it.
 - **Top views:** X runs right and Z runs down the page. RoomPlan is Y-up and right-handed, so drawing Z up the page
   mirrors the house.
 

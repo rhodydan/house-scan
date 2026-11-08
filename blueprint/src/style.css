@@ -339,3 +339,10 @@ button.off { opacity: 0.45; text-decoration: line-through; }
 .embed #rail { width: 128px; right: 10px; gap: 6px; }
 .embed .rail-item b { font-size: 12px; }
 .embed .rail-item span { font-size: 8px; }
+
+/* Outdoor places on the site plan: a ringed dot before the name, like a keyed callout. */
+.place i { display: inline-block; width: 0.7em; height: 0.7em; border: 2px solid var(--ink); border-radius: 50%; margin-right: 0.35em; vertical-align: -0.05em; }
+.place b { display: inline; }
+.drawn canvas > .site-note { font-size: 18px; color: var(--ink-soft); }
+
+.control-panel .fine a { color: var(--ink); text-decoration: underline; text-transform: uppercase; }

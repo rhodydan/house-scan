@@ -39,7 +39,7 @@ export const ATTRIBUTES = new Set([
   'current_temperature', 'temperature', 'target_temp_low', 'target_temp_high', 'min_temp', 'max_temp',
   'target_temp_step', 'hvac_modes', 'hvac_action', 'current_humidity', 'preset_mode', 'fan_mode', 'percentage',
   'current_position', 'media_title', 'media_artist', 'app_name', 'source', 'volume_level', 'is_volume_muted',
-  'battery_level', 'status', 'fan_speed',
+  'battery_level', 'status', 'fan_speed', 'event_type',
 ]);
 
 export function publicState(state) {
@@ -119,6 +119,12 @@ export class HaLink extends EventEmitter {
       ]);
       this.registry = { areas, devices, entities };
       this.states = new Map(states.map((s) => [s.entity_id, s]));
+      // Which cameras can give a still picture: ones that only stream WebRTC (Nest's) get a placeholder instead.
+      this.streams = new Map();
+      for (const s of states.filter((s) => s.entity_id.startsWith('camera.'))) {
+        const caps = await this.send({ type: 'camera/capabilities', entity_id: s.entity_id }).catch(() => null);
+        if (caps?.frontend_stream_types) this.streams.set(s.entity_id, caps.frontend_stream_types);
+      }
       await this.send({ type: 'subscribe_events', event_type: 'state_changed' });
       this.backoff = 1000;
       this.setStatus(true);
@@ -137,6 +143,7 @@ export class HaLink extends EventEmitter {
         name: e.name ?? e.original_name ?? this.states.get(e.entity_id)?.attributes?.friendly_name ?? e.entity_id,
         device_id: e.device_id ?? null,
         area_id: e.area_id ?? deviceArea.get(e.device_id) ?? null,
+        ...(this.streams?.has(e.entity_id) ? { stream: this.streams.get(e.entity_id).includes('hls') ? 'hls' : this.streams.get(e.entity_id)[0] } : {}),
         ...publicState(this.states.get(e.entity_id)),
       }));
     return {

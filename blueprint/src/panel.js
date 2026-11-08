@@ -19,6 +19,7 @@ const GLYPHS = {
   scene: () => svg('<path d="M13 3l2.6 6.4L22 10l-5 4.3L18.5 21 13 17.4 7.5 21 9 14.3 4 10l6.4-.6z"/>'),
   button: () => svg('<circle cx="13" cy="13" r="9"/><circle cx="13" cy="13" r="4"/>'),
   sensor: () => svg('<path d="M13 3l10 10-10 10L3 13z"/>'),
+  event: () => svg('<path d="M8 18V12a5 5 0 0 1 10 0v6l2 2H6z"/><path d="M11 22h4"/>'),
   binary_sensor: (on) => svg(`<path d="M13 3l10 10-10 10L3 13z"/>${on ? '<path d="M13 3L3 13l10 10z" fill="currentColor"/>' : ''}`),
 };
 GLYPHS.input_boolean = GLYPHS.switch;
@@ -36,6 +37,13 @@ export function summary(e) {
     case 'light': return e.state === 'on' && a.brightness ? `ON · ${Math.round((a.brightness / 255) * 100)}%` : e.state.toUpperCase();
     case 'climate': return `${a.current_temperature ?? '–'}° · ${(a.hvac_action ?? e.state).toUpperCase()}`;
     case 'binary_sensor': { const w = BINARY_WORDS[a.device_class] ?? ['OFF', 'ON']; return w[e.state === 'on' ? 1 : 0]; }
+    case 'event': {
+      const t = Date.parse(e.state);
+      if (Number.isNaN(t)) return 'NO EVENTS YET';
+      const minutes = Math.round((Date.now() - t) / 60000);
+      const ago = minutes < 1 ? 'JUST NOW' : minutes < 60 ? `${minutes} MIN AGO` : minutes < 1440 ? `${Math.round(minutes / 60)} H AGO` : `${Math.round(minutes / 1440)} D AGO`;
+      return `${String(a.event_type ?? 'event').replace(/_/g, ' ').toUpperCase()} · ${ago}`;
+    }
     case 'sensor': return `${e.state}${a.unit_of_measurement ? ` ${a.unit_of_measurement}` : ''}`.toUpperCase();
     case 'media_player': return a.media_title ? `${e.state.toUpperCase()} · ${a.media_title}` : e.state.toUpperCase();
     case 'cover': return a.current_position !== undefined && e.state !== 'closed' ? `${e.state.toUpperCase()} · ${a.current_position}%` : e.state.toUpperCase();
@@ -111,7 +119,12 @@ function controls(e, ui) {
   } else if (domain === 'vacuum') {
     body += `<p class="fine">${esc(a.status ?? '')}${a.battery_level != null ? ` · BATTERY ${a.battery_level}%` : ''}</p><div class="row">${act(e, 'start', {}, 'START')}${act(e, 'pause', {}, 'PAUSE')}${act(e, 'return_to_base', {}, 'DOCK')}</div>`;
   } else if (domain === 'camera') {
-    body += `<img class="cam" src="${esc(ui.cameraUrl(e.entity_id, ui.cameraTick))}" alt="">`;
+    // Cameras that only stream live video (WebRTC, as Nest's do) have no still picture to show, just a placeholder.
+    if (e.stream === 'web_rtc') {
+      body += `<p class="fine">Live video only: this camera has no still picture.${ui.cameraLink ? ` <a href="${esc(ui.cameraLink)}" target="_blank" rel="noopener">Open live view</a>` : ''}</p>`;
+    } else {
+      body += `<img class="cam" src="${esc(ui.cameraUrl(e.entity_id, ui.cameraTick))}" alt="">`;
+    }
   } else if (domain === 'scene') {
     body += `<div class="row">${act(e, 'turn_on', {}, 'ACTIVATE')}</div>`;
   } else if (domain === 'button') {
@@ -123,7 +136,8 @@ function controls(e, ui) {
 /** The whole panel for a room: its devices, and the chosen device's controls. */
 export function renderPanel(ui, home) {
   const { floor, room } = ui;
-  const title = `<header><button class="close" data-close>×</button><small>${esc(floor.label)} · EL. ${feetInches(floor.elevation)}</small><h2>${esc(room.name)}</h2>${room.area ? `<span>${squareFeet(room.area)}</span>` : ''}</header>`;
+  const where = floor.label === 'Site' ? 'OUTSIDE' : `${esc(floor.label)} · EL. ${feetInches(floor.elevation)}`;
+  const title = `<header><button class="close" data-close>×</button><small>${where}</small><h2>${esc(room.name)}</h2>${room.area ? `<span>${squareFeet(room.area)}</span>` : ''}</header>`;
   if (!home.status.connected) {
     const why = home.status.error === 'no_token'
       ? 'Not connected to Home Assistant yet: no token. Run scripts/set-ha-token.sh, then restart.'

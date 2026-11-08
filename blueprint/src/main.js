@@ -8,6 +8,7 @@ import { DemoHome } from './demo-home.js';
 import { Home } from './ha.js';
 import { feetInches, loadHouse, squareFeet } from './house.js';
 import { renderPanel } from './panel.js';
+import { buildSite } from './site.js';
 
 const PAPER = 0x10406f;
 const WALL_THICKNESS = 0.11;
@@ -502,7 +503,9 @@ function renderChrome() {
     const b = document.createElement('button');
     b.className = `rail-item ${state.focus === i ? 'on' : ''} ${state.hidden.has(i) ? 'off' : ''}`;
     b.dataset.floor = i;
-    b.innerHTML = `<b>${f.floor.label}</b><span>EL. ${f.floor.elevation >= 0 ? '+' : ''}${feetInches(f.floor.elevation)} · PLAN</span>`;
+    b.innerHTML = f.site
+      ? '<b>Site</b><span>Lot, landscape, outside · PLAN</span>'
+      : `<b>${f.floor.label}</b><span>EL. ${f.floor.elevation >= 0 ? '+' : ''}${feetInches(f.floor.elevation)} · PLAN</span>`;
     b.onclick = () => { closePanel(); planOf(i); };
     rail.appendChild(b);
   });
@@ -596,13 +599,16 @@ function frame(now) {
     f.lines.geometry.setDrawRange(0, Math.floor(count * local));
     f.group.position.y = f.floor.elevation + state.expand * f.level * FLOOR_GAP;
     // In a floor's plan, the other floors go almost entirely away.
-    const wanted = state.hidden.has(i) ? 0 : state.focus === null || state.focus === i ? 1 : 0.035;
+    // In a floor's plan the rest go almost entirely away; in the site's plan the house stays faintly in place.
+    const siteFocused = state.floors[state.focus]?.site;
+    const wanted = state.hidden.has(i) ? 0 : state.focus === null || state.focus === i ? 1 : siteFocused ? 0.22 : f.site ? 0 : 0.035;
     f.alpha += (wanted - f.alpha) * Math.min(1, dt * 6);
     f.group.visible = f.alpha > 0.01;
     for (const [k, m] of Object.entries(f.materials)) m.opacity = f.base[k] * f.alpha * (k === 'line' || k === 'outline' ? 1 : local);
     // Stacked floors would letter over each other, so room names wait until the floors are apart or one is chosen.
     const ready = state.labels && local > 0.95 && f.alpha > 0.6;
-    const rooms = ready && (state.focus === i || (state.focus === null && state.expand > 0.4));
+    // The site's lettering is sized for the whole lot, so it shows only in the site's own plan.
+    const rooms = ready && (state.focus === i || (state.focus === null && state.expand > 0.4 && !f.site));
     for (const label of f.labels) label.setOpacity(rooms && (state.focus === i || !label.small) ? Math.min(1, f.alpha) : 0);
     f.dims.visible = state.labels && state.focus === i && f.alpha > 0.6;
     for (const tag of f.dims.userData.tags) tag.setOpacity(f.dims.visible ? 1 : 0);
@@ -646,6 +652,8 @@ async function start() {
   const house = await loadHouse(read);
   document.getElementById('title').textContent = house.name;
   document.getElementById('sheet-date').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).toUpperCase();
+  // Where live camera video can be watched (a hub's camera page, say), for cameras with no still picture.
+  ui.cameraLink = houseFile.links?.cameras ?? null;
   const bearing = houseFile.north?.plusXBearingDegrees;
   if (Number.isFinite(bearing)) {
     // North is +X turned back by the bearing of +X; on the page, turning from +X towards +Z is clockwise.
@@ -655,6 +663,7 @@ async function start() {
   }
   const hatch = hatchTexture();
   state.floors = house.floors.map((f, i) => buildFloor(f, i, hatch));
+  if (house.site) state.floors.push(buildSite(house.site, state.floors.length, { letter, onPlace: openRoom }));
   state.floors.forEach((f) => scene.add(f.group));
   state.radius = Math.max(house.size[0], house.size[1]) * 2.1;
   scene.fog = new THREE.Fog(PAPER, 30, 90);
