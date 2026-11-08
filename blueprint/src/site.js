@@ -156,6 +156,24 @@ export function buildSite(site, index, { letter, onPlace }) {
     all.push(place.at);
   }
 
+  // A plan image to trace over, laid on the ground at its fitted position. Hidden until the site editor shows it.
+  let underlay = null;
+  if (site.underlay) {
+    const [tl, tr, br, bl] = site.underlay.corners;
+    const y = (site.underlay.elevation ?? 0) - 0.03;
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.Float32BufferAttribute([tl, tr, br, bl].flatMap((p) => [p[0], y, p[1]]), 3));
+    geometry.setAttribute('uv', new THREE.Float32BufferAttribute([0, 1, 1, 1, 1, 0, 0, 0], 2));
+    geometry.setIndex([0, 3, 1, 1, 3, 2]);
+    const material = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide });
+    new THREE.TextureLoader().load(site.underlay.file, (texture) => { texture.colorSpace = THREE.SRGBColorSpace; material.map = texture; material.needsUpdate = true; });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.renderOrder = -1;
+    mesh.visible = false;
+    group.add(mesh);
+    underlay = { mesh, material };
+  }
+
   // The lot as a tappable slab: its property line if there is one, else everything drawn.
   const lot = (site.features ?? []).find((f) => f.kind === 'property' && f.closed !== false)?.points;
   let slab = null;
@@ -167,6 +185,7 @@ export function buildSite(site, index, { letter, onPlace }) {
     group.add(slab);
   }
 
+  if (!all.length) all.push([-15, -15], [15, 15]); // nothing drawn yet: frame a plot around the house
   const bounds = {
     min: [Math.min(...all.map((p) => p[0])), Math.min(...all.map((p) => p[1]))],
     max: [Math.max(...all.map((p) => p[0])), Math.max(...all.map((p) => p[1]))],
@@ -176,7 +195,7 @@ export function buildSite(site, index, { letter, onPlace }) {
   dims.userData.tags = [];
   const anchor = all.reduce((best, p) => (p[0] > best[0] ? p : best), all[0] ?? [0, 0]);
   return {
-    group, lines: lineMesh, materials, base, labels, dims, slab, anchor, bounds, level: 0, alpha: 1, site: true,
+    group, lines: lineMesh, materials, base, labels, dims, slab, anchor, bounds, level: 0, alpha: 1, site: true, underlay,
     floor: { label: 'Site', elevation: -0.01, rooms: (site.places ?? []).map((p) => ({ name: p.name, center: p.at, area: null })), outline: lot ?? [] },
   };
 }

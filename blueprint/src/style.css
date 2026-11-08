@@ -346,3 +346,20 @@ button.off { opacity: 0.45; text-decoration: line-through; }
 .drawn canvas > .site-note { font-size: 18px; color: var(--ink-soft); }
 
 .control-panel .fine a { color: var(--ink); text-decoration: underline; text-transform: uppercase; }
+
+/* The site editor's tools, along the bottom like a drafting table's edge. */
+#site-tools {
+  position: fixed; left: 50%; bottom: 16px; translate: -50% 0; z-index: 3;
+  padding: 10px 14px; max-width: calc(100vw - 32px);
+  border: 1.5px solid var(--ink); outline: 1px solid var(--ink-soft); outline-offset: 3px;
+  background: rgba(10, 43, 79, 0.85); text-transform: uppercase; font-size: 12px;
+}
+#site-tools[hidden] { display: none; }
+#site-tools .row { margin-top: 6px; }
+#site-tools .row:first-child { margin-top: 0; }
+#site-tools select { font: inherit; font-size: 11px; color: var(--ink); background: var(--paper-deep); border: 1px solid var(--ink-soft); text-transform: uppercase; }
+#site-tools label { display: inline-flex; gap: 8px; align-items: center; }
+#site-tools input[type=range] { accent-color: var(--ink); }
+#site-tools button:disabled { opacity: 0.4; cursor: default; }
+#site-tools .hint { margin: 8px 0 0; font-size: 11px; color: var(--ink-soft); text-transform: none; }
+.editing-site .titleblock { opacity: 0; pointer-events: none; }

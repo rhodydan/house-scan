@@ -182,12 +182,31 @@ export async function loadHouse(read) {
     f.rooms = f.rooms.map((r) => ({ ...r, center: shift(r.center) }));
     f.callouts = f.callouts.map((c) => ({ ...c, at: shift(c.at) }));
   }
-  // The site (lot, landscaping, outdoor places) is drawn in the same frame as the stacked floors, so it moves with them.
-  const site = house.site ? {
-    features: (house.site.features ?? []).map((f) => ({ ...f, ...(f.points ? { points: f.points.map(shift) } : {}), ...(f.center ? { center: shift(f.center) } : {}) })),
-    places: (house.site.places ?? []).map((p) => ({ ...p, at: shift(p.at) })),
-  } : null;
-  return { name: house.name, floors, size: sub(max, min), origin: mid, site };
+  return { name: house.name, floors, size: sub(max, min), origin: mid, site: house.site ? placeSite(house.site, mid) : null };
+}
+
+/**
+ * The site as drawn: house.json keeps it in the stacked floors' frame, and the drawing is centred on the house, so
+ * everything moves by `origin`. A traced-over plan image (`underlay`) gets its four corners worked out from its fit:
+ * which pixel sits at which point, how many pixels to a metre, and the compass bearing of the house's +X on it
+ * (north up the image).
+ */
+export function placeSite(site, origin) {
+  const shift = (p) => sub(p, origin);
+  const placed = {
+    features: (site.features ?? []).map((f) => ({ ...f, ...(f.points ? { points: f.points.map(shift) } : {}), ...(f.center ? { center: shift(f.center) } : {}) })),
+    places: (site.places ?? []).map((p) => ({ ...p, at: shift(p.at) })),
+  };
+  const u = site.underlay;
+  if (u?.file && finite(u.width, u.height, u.bearing, u.pxPerMetre)) {
+    const b = (u.bearing * Math.PI) / 180;
+    const toPlan = ([px, py]) => {
+      const d = [(px - u.anchorPx[0]) / u.pxPerMetre, (py - u.anchorPx[1]) / u.pxPerMetre];
+      return shift([u.anchorAt[0] + d[0] * Math.sin(b) - d[1] * Math.cos(b), u.anchorAt[1] + d[0] * Math.cos(b) + d[1] * Math.sin(b)]);
+    };
+    placed.underlay = { file: u.file, elevation: u.elevation ?? 0, corners: [[0, 0], [u.width, 0], [u.width, u.height], [0, u.height]].map(toPlan) };
+  }
+  return placed;
 }
 
 /** 3.05 → 10'-0", the way a draftsman writes it. */

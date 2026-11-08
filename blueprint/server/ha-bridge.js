@@ -172,9 +172,9 @@ const json = (res, status, body) => {
   res.end(JSON.stringify(body));
 };
 
-async function readBody(req) {
+async function readBody(req, limit = 20000) {
   let text = '';
-  for await (const chunk of req) { text += chunk; if (text.length > 20000) throw new Error('too large'); }
+  for await (const chunk of req) { text += chunk; if (text.length > limit) throw new Error('too large'); }
   return JSON.parse(text || '{}');
 }
 
@@ -227,6 +227,19 @@ export function haBridge({ houseDir }) {
               if (roomsFile) await writeFile(roomsFile, JSON.stringify(map, null, 1) + '\n'); else demoRooms = map;
             }
             return json(res, 200, map);
+          }
+          // The site editor saves the lot drawing into house.json, keeping the previous file as house.json.bak.
+          if (url.pathname === '/ha/site' && req.method === 'POST') {
+            if (!houseDir) return json(res, 400, { error: 'no house folder' });
+            const { site } = await readBody(req, 2_000_000);
+            if (!site || typeof site !== 'object' || !Array.isArray(site.features ?? []) || !Array.isArray(site.places ?? [])) return json(res, 400, { error: 'bad site' });
+            const file = path.join(houseDir, 'house.json');
+            const text = await readFile(file, 'utf8');
+            const house = JSON.parse(text);
+            await writeFile(file + '.bak', text);
+            house.site = site;
+            await writeFile(file, JSON.stringify(house, null, 1) + '\n');
+            return json(res, 200, { ok: true });
           }
           if (!link?.status.connected) return json(res, 503, { error: link?.status.error ?? 'no_token' });
           if (url.pathname === '/ha/snapshot') return json(res, 200, link.snapshot());

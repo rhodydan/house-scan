@@ -6,8 +6,9 @@ import { CSS2DObject, CSS2DRenderer } from 'three/examples/jsm/renderers/CSS2DRe
 import { DrawnLayer, supported as drawnSupported } from './drawn.js';
 import { DemoHome } from './demo-home.js';
 import { Home } from './ha.js';
-import { feetInches, loadHouse, squareFeet } from './house.js';
+import { feetInches, loadHouse, placeSite, squareFeet } from './house.js';
 import { renderPanel } from './panel.js';
+import { SiteEditor } from './site-editor.js';
 import { buildSite } from './site.js';
 
 const PAPER = 0x10406f;
@@ -434,6 +435,7 @@ function placePanel() {
 }
 
 function openRoom(index, room) {
+  if (siteEditor?.active) return; // while drawing, a tap on a place label is a drawing tap
   ui.open = true;
   document.body.classList.add('room-open');
   ui.floor = state.floors[index].floor;
@@ -510,6 +512,11 @@ function renderChrome() {
     rail.appendChild(b);
   });
   document.querySelectorAll('[data-view]').forEach((b) => b.classList.toggle('on', state.focus === null && b.dataset.view === state.view));
+  // Editing the site is offered in the site's own plan, when there's a server to save to.
+  const editButton = document.getElementById('edit-site');
+  editButton.hidden = !siteEditor || !state.floors[state.focus]?.site;
+  editButton.onclick = () => { closePanel(); siteEditor.open(); };
+  if (siteEditor?.active && !state.floors[state.focus]?.site) siteEditor.close();
 }
 
 function wireControls() {
@@ -526,7 +533,7 @@ function wireControls() {
   let down = null;
   canvas.addEventListener('pointerdown', (e) => { down = [e.clientX, e.clientY]; });
   canvas.addEventListener('click', (e) => {
-    if (e.target !== canvas || !down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
+    if (siteEditor?.active || e.target !== canvas || !down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
     const rect = canvas.getBoundingClientRect();
     const pointer = new THREE.Vector2(((e.clientX - rect.left) / rect.width) * 2 - 1, -((e.clientY - rect.top) / rect.height) * 2 + 1);
     const ray = new THREE.Raycaster();
@@ -643,6 +650,44 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 
+// ---------- the site editor ----------
+
+let siteEditor = null;
+let houseOrigin = [0, 0];
+let sheetOpacity = 0;
+
+/** Redraws the site from house.json's version of it, in place, keeping the view. */
+function rebuildSite(raw) {
+  let i = state.floors.findIndex((f) => f.site);
+  const old = state.floors[i];
+  if (old) {
+    for (const label of old.labels) { if (label.surface) drawn.remove(label.surface); else label.element?.remove(); }
+    scene.remove(old.group);
+  } else {
+    i = state.floors.length;
+  }
+  const next = buildSite(placeSite(raw, houseOrigin), i, { letter, onPlace: openRoom });
+  next.alpha = old?.alpha ?? 1;
+  state.floors[i] = next;
+  scene.add(next.group);
+  showSheet(sheetOpacity);
+  if (!old) renderChrome();
+}
+
+/** Shows the traced-over plan image under the site at this opacity (0 hides it). */
+function showSheet(opacity) {
+  sheetOpacity = opacity;
+  const underlay = state.floors.find((f) => f.site)?.underlay;
+  if (!underlay) return;
+  underlay.mesh.visible = opacity > 0;
+  underlay.material.opacity = opacity;
+}
+
+async function saveSite(site) {
+  const response = await fetch('/ha/site', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ site }) });
+  if (!response.ok) throw new Error((await response.json().catch(() => ({}))).error ?? response.statusText);
+}
+
 // ---------- start ----------
 
 async function start() {
@@ -663,8 +708,19 @@ async function start() {
   }
   const hatch = hatchTexture();
   state.floors = house.floors.map((f, i) => buildFloor(f, i, hatch));
-  if (house.site) state.floors.push(buildSite(house.site, state.floors.length, { letter, onPlace: openRoom }));
+  // The site gets drawn even when there isn't one yet, so there's somewhere to draw it (except in the public demo).
+  if (house.site || !DEMO) state.floors.push(buildSite(house.site ?? { features: [], places: [] }, state.floors.length, { letter, onPlace: openRoom }));
   state.floors.forEach((f) => scene.add(f.group));
+  houseOrigin = house.origin;
+  if (!DEMO) {
+    const elevations = state.floors.filter((f) => !f.site).map((f) => f.floor.elevation);
+    const garage = state.floors.find((f) => f.floor.label === 'Garage');
+    siteEditor = new SiteEditor({
+      scene, camera, canvas, controls, origin: house.origin, site: houseFile.site,
+      levels: { back: Math.min(...elevations), front: garage?.floor.elevation ?? state.floors[mainFloor()].floor.elevation },
+      onChange: rebuildSite, onSave: saveSite, onSheet: showSheet, areaNames: () => home.areas.map((a) => a.name),
+    });
+  }
   state.radius = Math.max(house.size[0], house.size[1]) * 2.1;
   scene.fog = new THREE.Fog(PAPER, 30, 90);
   resize();
