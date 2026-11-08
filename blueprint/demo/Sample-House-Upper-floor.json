@@ -1,0 +1,1447 @@
+{
+ "format": "house-scan-floor/1",
+ "units": "metres, degrees",
+ "coordinateSystem": "Y up, X and Z horizontal, right-handed; origin and orientation are arbitrary, set by where the scan began",
+ "project": "Sample House",
+ "floor": "Upper floor",
+ "exportedAt": "2026-01-01T00:00:00Z",
+ "mergeStatus": "merged",
+ "rooms": [
+  {
+   "name": "Primary Bedroom",
+   "center": {
+    "x": 2.5,
+    "y": 0,
+    "z": 2.25
+   },
+   "floorAreaSquareMetres": 22.5
+  },
+  {
+   "name": "Bedroom 2",
+   "center": {
+    "x": 2.5,
+    "y": 0,
+    "z": 6.25
+   },
+   "floorAreaSquareMetres": 17.5
+  },
+  {
+   "name": "Bathroom",
+   "center": {
+    "x": 9,
+    "y": 0,
+    "z": 1.5
+   },
+   "floorAreaSquareMetres": 12
+  },
+  {
+   "name": "Bedroom 3",
+   "center": {
+    "x": 9,
+    "y": 0,
+    "z": 5.5
+   },
+   "floorAreaSquareMetres": 20
+  },
+  {
+   "name": "Upstairs Hall",
+   "center": {
+    "x": 6,
+    "y": 0,
+    "z": 4.8
+   },
+   "floorAreaSquareMetres": 12.8
+  },
+  {
+   "name": "Laundry",
+   "center": {
+    "x": 6,
+    "y": 0,
+    "z": 0.8
+   },
+   "floorAreaSquareMetres": 3.2
+  }
+ ],
+ "unmergedRooms": [],
+ "warnings": [],
+ "walls": [
+  {
+   "id": "535CB7AA-6F5A-5317-AB97-AEB0BD56F2F6",
+   "kind": "wall",
+   "size": {
+    "width": 11,
+    "height": 2.7,
+    "depth": 0
+   },
+   "position": {
+    "x": 5.5,
+    "y": 1.35,
+    "z": 0
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    5.5,
+    1.35,
+    0,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "AFCDC085-C530-5D36-A80F-9F8CD64D435E",
+   "kind": "wall",
+   "size": {
+    "width": 8,
+    "height": 2.7,
+    "depth": 0
+   },
+   "position": {
+    "x": 11,
+    "y": 1.35,
+    "z": 4
+   },
+   "rotation": {
+    "yawDegrees": -90,
+    "quaternion": {
+     "x": 0,
+     "y": -0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    -1,
+    0,
+    0,
+    0,
+    11,
+    1.35,
+    4,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "53C3F67D-3BBC-50E9-A99B-F4ACD987139A",
+   "kind": "wall",
+   "size": {
+    "width": 11,
+    "height": 2.7,
+    "depth": 0
+   },
+   "position": {
+    "x": 5.5,
+    "y": 1.35,
+    "z": 8
+   },
+   "rotation": {
+    "yawDegrees": -180,
+    "quaternion": {
+     "x": 0,
+     "y": -1,
+     "z": 0,
+     "w": 0
+    }
+   },
+   "transform": [
+    -1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    -1,
+    0,
+    5.5,
+    1.35,
+    8,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "06C10AB7-84C0-5236-AFC6-4FCAAED6E7B3",
+   "kind": "wall",
+   "size": {
+    "width": 8,
+    "height": 2.7,
+    "depth": 0
+   },
+   "position": {
+    "x": 0,
+    "y": 1.35,
+    "z": 4
+   },
+   "rotation": {
+    "yawDegrees": 90,
+    "quaternion": {
+     "x": 0,
+     "y": 0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    -1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1.35,
+    4,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "A4B6D47B-ABCA-5400-A52C-FFC021E5DA8D",
+   "kind": "wall",
+   "size": {
+    "width": 8,
+    "height": 2.7,
+    "depth": 0
+   },
+   "position": {
+    "x": 5,
+    "y": 1.35,
+    "z": 4
+   },
+   "rotation": {
+    "yawDegrees": -90,
+    "quaternion": {
+     "x": 0,
+     "y": -0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    -1,
+    0,
+    0,
+    0,
+    5,
+    1.35,
+    4,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "C2796818-BB22-575F-A4CF-95BF5A7A6FF8",
+   "kind": "wall",
+   "size": {
+    "width": 8,
+    "height": 2.7,
+    "depth": 0
+   },
+   "position": {
+    "x": 7,
+    "y": 1.35,
+    "z": 4
+   },
+   "rotation": {
+    "yawDegrees": -90,
+    "quaternion": {
+     "x": 0,
+     "y": -0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    -1,
+    0,
+    0,
+    0,
+    7,
+    1.35,
+    4,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "C380DA32-012E-56CA-A18D-542D098BEB36",
+   "kind": "wall",
+   "size": {
+    "width": 5,
+    "height": 2.7,
+    "depth": 0
+   },
+   "position": {
+    "x": 2.5,
+    "y": 1.35,
+    "z": 4.5
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    2.5,
+    1.35,
+    4.5,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "615BC6E1-F2A4-5C6A-A4A2-7BD727518D95",
+   "kind": "wall",
+   "size": {
+    "width": 4,
+    "height": 2.7,
+    "depth": 0
+   },
+   "position": {
+    "x": 9,
+    "y": 1.35,
+    "z": 3
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    9,
+    1.35,
+    3,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "83552455-57C4-5F7D-ABF3-2CF13625760A",
+   "kind": "wall",
+   "size": {
+    "width": 2,
+    "height": 2.7,
+    "depth": 0
+   },
+   "position": {
+    "x": 6,
+    "y": 1.35,
+    "z": 1.6
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    6,
+    1.35,
+    1.6,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  }
+ ],
+ "doors": [
+  {
+   "id": "2996D7EC-97D8-5DD8-A3D6-018CBF5D2BCD",
+   "kind": "door",
+   "size": {
+    "width": 0.9,
+    "height": 2.03,
+    "depth": 0
+   },
+   "position": {
+    "x": 5,
+    "y": 1.015,
+    "z": 2.5
+   },
+   "rotation": {
+    "yawDegrees": -90,
+    "quaternion": {
+     "x": 0,
+     "y": -0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    -1,
+    0,
+    0,
+    0,
+    5,
+    1.015,
+    2.5,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": [],
+   "isOpen": false
+  },
+  {
+   "id": "BABBE410-481D-5E9D-AB45-6AE912F44DC7",
+   "kind": "door",
+   "size": {
+    "width": 0.9,
+    "height": 2.03,
+    "depth": 0
+   },
+   "position": {
+    "x": 5,
+    "y": 1.015,
+    "z": 6.2
+   },
+   "rotation": {
+    "yawDegrees": -90,
+    "quaternion": {
+     "x": 0,
+     "y": -0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    -1,
+    0,
+    0,
+    0,
+    5,
+    1.015,
+    6.2,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": [],
+   "isOpen": false
+  },
+  {
+   "id": "31A7875C-C49F-5479-AB86-28777FCD187E",
+   "kind": "door",
+   "size": {
+    "width": 0.8,
+    "height": 2.03,
+    "depth": 0
+   },
+   "position": {
+    "x": 7,
+    "y": 1.015,
+    "z": 2.3
+   },
+   "rotation": {
+    "yawDegrees": -90,
+    "quaternion": {
+     "x": 0,
+     "y": -0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    -1,
+    0,
+    0,
+    0,
+    7,
+    1.015,
+    2.3,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": [],
+   "isOpen": false
+  },
+  {
+   "id": "74E054E4-EF22-5BC5-A4E2-029276F099A4",
+   "kind": "door",
+   "size": {
+    "width": 0.9,
+    "height": 2.03,
+    "depth": 0
+   },
+   "position": {
+    "x": 7,
+    "y": 1.015,
+    "z": 5.5
+   },
+   "rotation": {
+    "yawDegrees": -90,
+    "quaternion": {
+     "x": 0,
+     "y": -0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    -1,
+    0,
+    0,
+    0,
+    7,
+    1.015,
+    5.5,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": [],
+   "isOpen": false
+  },
+  {
+   "id": "9CF9A40A-095A-559E-A956-8517992CBCF8",
+   "kind": "door",
+   "size": {
+    "width": 0.8,
+    "height": 2.03,
+    "depth": 0
+   },
+   "position": {
+    "x": 6,
+    "y": 1.015,
+    "z": 1.6
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    6,
+    1.015,
+    1.6,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": [],
+   "isOpen": false
+  }
+ ],
+ "windows": [
+  {
+   "id": "C7288159-3F8C-5009-A73F-4494F21D78DC",
+   "kind": "window",
+   "size": {
+    "width": 1.6,
+    "height": 1.3,
+    "depth": 0
+   },
+   "position": {
+    "x": 2.5,
+    "y": 1.55,
+    "z": 0
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    2.5,
+    1.55,
+    0,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "4CC50919-F438-5D8A-AD84-C152A6FE5DB7",
+   "kind": "window",
+   "size": {
+    "width": 1.2,
+    "height": 1.3,
+    "depth": 0
+   },
+   "position": {
+    "x": 0,
+    "y": 1.55,
+    "z": 5.8
+   },
+   "rotation": {
+    "yawDegrees": 90,
+    "quaternion": {
+     "x": 0,
+     "y": 0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    -1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1.55,
+    5.8,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "85031373-72BB-5881-A0D0-8D1FA91CD65B",
+   "kind": "window",
+   "size": {
+    "width": 1.6,
+    "height": 1.3,
+    "depth": 0
+   },
+   "position": {
+    "x": 2.5,
+    "y": 1.55,
+    "z": 8
+   },
+   "rotation": {
+    "yawDegrees": -180,
+    "quaternion": {
+     "x": 0,
+     "y": -1,
+     "z": 0,
+     "w": 0
+    }
+   },
+   "transform": [
+    -1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    -1,
+    0,
+    2.5,
+    1.55,
+    8,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "7A247E87-ABB2-5E3F-A47E-1AFC5D791771",
+   "kind": "window",
+   "size": {
+    "width": 1.2,
+    "height": 1.3,
+    "depth": 0
+   },
+   "position": {
+    "x": 0,
+    "y": 1.55,
+    "z": 2
+   },
+   "rotation": {
+    "yawDegrees": 90,
+    "quaternion": {
+     "x": 0,
+     "y": 0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    -1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1.55,
+    2,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "B43B31F4-3CEA-5622-ABBD-DB2333B58988",
+   "kind": "window",
+   "size": {
+    "width": 1,
+    "height": 1.3,
+    "depth": 0
+   },
+   "position": {
+    "x": 9,
+    "y": 1.55,
+    "z": 0
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    9,
+    1.55,
+    0,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "1D3F455E-612C-5D07-AD4C-E13EA5A1F9D4",
+   "kind": "window",
+   "size": {
+    "width": 1.6,
+    "height": 1.3,
+    "depth": 0
+   },
+   "position": {
+    "x": 9,
+    "y": 1.55,
+    "z": 8
+   },
+   "rotation": {
+    "yawDegrees": -180,
+    "quaternion": {
+     "x": 0,
+     "y": -1,
+     "z": 0,
+     "w": 0
+    }
+   },
+   "transform": [
+    -1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    -1,
+    0,
+    9,
+    1.55,
+    8,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  },
+  {
+   "id": "DA1113F7-1971-5459-A867-7AF9CEDDCFC4",
+   "kind": "window",
+   "size": {
+    "width": 1.4,
+    "height": 1.3,
+    "depth": 0
+   },
+   "position": {
+    "x": 11,
+    "y": 1.55,
+    "z": 5.5
+   },
+   "rotation": {
+    "yawDegrees": -90,
+    "quaternion": {
+     "x": 0,
+     "y": -0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    -1,
+    0,
+    0,
+    0,
+    11,
+    1.55,
+    5.5,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": []
+  }
+ ],
+ "openings": [],
+ "floors": [
+  {
+   "id": "5A111609-446D-5CD0-A221-507E2A2583E1",
+   "kind": "floor",
+   "size": {
+    "width": 11,
+    "height": 8,
+    "depth": 0
+   },
+   "position": {
+    "x": 0,
+    "y": 0,
+    "z": 0
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1
+   ],
+   "confidence": "high",
+   "story": 0,
+   "completedEdges": [],
+   "polygonCorners": [
+    {
+     "x": 0,
+     "y": 0,
+     "z": 0
+    },
+    {
+     "x": 11,
+     "y": 0,
+     "z": 0
+    },
+    {
+     "x": 11,
+     "y": 0,
+     "z": 8
+    },
+    {
+     "x": 0,
+     "y": 0,
+     "z": 8
+    }
+   ]
+  }
+ ],
+ "objects": [
+  {
+   "id": "3ED36241-7169-56BD-A3A5-4003AD6513F6",
+   "category": "bed",
+   "attributes": [],
+   "size": {
+    "width": 1.9,
+    "height": 0.6,
+    "depth": 2.1
+   },
+   "position": {
+    "x": 2.5,
+    "y": 0.3,
+    "z": 1.6
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    2.5,
+    0.3,
+    1.6,
+    1
+   ],
+   "confidence": "high",
+   "story": 0
+  },
+  {
+   "id": "148FCC75-9F90-51B9-AEA9-F210AB447158",
+   "category": "bed",
+   "attributes": [],
+   "size": {
+    "width": 1.4,
+    "height": 0.6,
+    "depth": 2
+   },
+   "position": {
+    "x": 2,
+    "y": 0.3,
+    "z": 6.6
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    2,
+    0.3,
+    6.6,
+    1
+   ],
+   "confidence": "high",
+   "story": 0
+  },
+  {
+   "id": "2CA5DEC2-935A-5A64-A57C-B3F25DC0F6E7",
+   "category": "bed",
+   "attributes": [],
+   "size": {
+    "width": 1.4,
+    "height": 0.6,
+    "depth": 2
+   },
+   "position": {
+    "x": 9.4,
+    "y": 0.3,
+    "z": 6.4
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    9.4,
+    0.3,
+    6.4,
+    1
+   ],
+   "confidence": "high",
+   "story": 0
+  },
+  {
+   "id": "7FF52172-9AFA-5904-A1DB-0DC03019EF13",
+   "category": "bathtub",
+   "attributes": [],
+   "size": {
+    "width": 1.6,
+    "height": 0.55,
+    "depth": 0.75
+   },
+   "position": {
+    "x": 9.3,
+    "y": 0.275,
+    "z": 0.45
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    9.3,
+    0.275,
+    0.45,
+    1
+   ],
+   "confidence": "high",
+   "story": 0
+  },
+  {
+   "id": "25DBE70E-C8AA-53D0-ABEB-34538215EB1A",
+   "category": "sink",
+   "attributes": [],
+   "size": {
+    "width": 0.9,
+    "height": 0.85,
+    "depth": 0.55
+   },
+   "position": {
+    "x": 7.5,
+    "y": 0.425,
+    "z": 2.6
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    7.5,
+    0.425,
+    2.6,
+    1
+   ],
+   "confidence": "high",
+   "story": 0
+  },
+  {
+   "id": "13C935CF-A67D-5F8B-AC0F-D61AD351063A",
+   "category": "toilet",
+   "attributes": [],
+   "size": {
+    "width": 0.4,
+    "height": 0.75,
+    "depth": 0.7
+   },
+   "position": {
+    "x": 10.6,
+    "y": 0.375,
+    "z": 2.3
+   },
+   "rotation": {
+    "yawDegrees": -90,
+    "quaternion": {
+     "x": 0,
+     "y": -0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    -1,
+    0,
+    0,
+    0,
+    10.6,
+    0.375,
+    2.3,
+    1
+   ],
+   "confidence": "high",
+   "story": 0
+  },
+  {
+   "id": "D5BB86A5-768E-585B-A093-9F3EC73550FD",
+   "category": "washer/dryer",
+   "attributes": [],
+   "size": {
+    "width": 1.4,
+    "height": 0.9,
+    "depth": 0.65
+   },
+   "position": {
+    "x": 6,
+    "y": 0.45,
+    "z": 0.4
+   },
+   "rotation": {
+    "yawDegrees": 0,
+    "quaternion": {
+     "x": 0,
+     "y": 0,
+     "z": 0,
+     "w": 1
+    }
+   },
+   "transform": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    6,
+    0.45,
+    0.4,
+    1
+   ],
+   "confidence": "high",
+   "story": 0
+  },
+  {
+   "id": "A9292AAD-707C-57AE-A19A-9AAF7F4DACB2",
+   "category": "storage",
+   "attributes": [],
+   "size": {
+    "width": 1.2,
+    "height": 0.9,
+    "depth": 0.5
+   },
+   "position": {
+    "x": 4.4,
+    "y": 0.45,
+    "z": 3.9
+   },
+   "rotation": {
+    "yawDegrees": -90,
+    "quaternion": {
+     "x": 0,
+     "y": -0.70711,
+     "z": 0,
+     "w": 0.70711
+    }
+   },
+   "transform": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    -1,
+    0,
+    0,
+    0,
+    4.4,
+    0.45,
+    3.9,
+    1
+   ],
+   "confidence": "high",
+   "story": 0
+  }
+ ],
+ "sections": []
+}

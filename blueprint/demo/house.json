@@ -1,0 +1,33 @@
+{
+ "format": "house-blueprint/1",
+ "name": "Sample House",
+ "north": {
+  "plusXBearingDegrees": 90,
+  "note": "Invented house"
+ },
+ "floors": [
+  {
+   "file": "Sample-House-Main-floor.json",
+   "label": "Main floor",
+   "angleDegrees": 0,
+   "offset": [
+    0,
+    0
+   ],
+   "elevation": 0,
+   "floorY": 0
+  },
+  {
+   "file": "Sample-House-Upper-floor.json",
+   "label": "Upper floor",
+   "angleDegrees": 0,
+   "offset": [
+    0,
+    0
+   ],
+   "elevation": 3,
+   "floorY": 0
+  }
+ ],
+ "corrections": {}
+}
