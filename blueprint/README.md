@@ -65,6 +65,11 @@ against the mock, that a click on a drawn room label opens its panel and a tap o
   `elevation` (a sloping lot puts the back yard and the driveway at different heights), a `name` to letter it, and
   structures a `height` and `roof: "pyramid"`. `site.places` are outdoor spots (`name`, `at`, `elevation`) that open
   their Home Assistant area's devices, matched by name like rooms. The site gets its own entry in the floor rail.
+- **Drawing the site:** in the site's plan view, Edit site gives line, area, pool and place tools, corner dragging,
+  rename, delete and undo; Save writes `site` back into house.json (the old file is kept as house.json.bak).
+  `site.underlay` puts a plan image under the drawing to trace over: `file`, its pixel `width` and `height`, and the
+  fit that lines it up, `anchorPx` (a pixel) at `anchorAt` (a point in the house's frame), `pxPerMetre`, and `bearing`,
+  the compass bearing of the house's +X with north up the image.
 - **Links:** `links.cameras` is where to watch live video, such as a hub's camera page. Cameras that only stream
   WebRTC (Nest's, for example) have no still picture for the panel, so it offers this link instead.
 - **North:** `north.plusXBearingDegrees` is the compass bearing of the house's +X; the title block's arrow uses it.
